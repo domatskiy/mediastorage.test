@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-body">
+
+        <form [formGroup]="fileForm" (ngSubmit)="onFormSubmit(fileForm)">
+            <div class="form-group">
+                <label for="inputEmail1">Email</label>
+                <input formControlName="email" type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="email" [attr.disabled] = "processed ? true: null">
+                <small id="emailHelp" class="form-text text-muted">На него будет выслана ссылка на файл</small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputFile">Файл</label>
+                <input formControlName="file" type="file" class="form-control-file" id="inputFile" (change)="handleFileSelect($event)" [attr.disabled] = "processed ? true: null">
+                <small id="fileHelp" class="form-text text-muted">Файл должен быть не менее 100Мб и не более 150Мб</small>
+                <span *ngIf="fileForm.controls.file.errors && fileForm.controls.file.errors.incorrectSize" [ngClass] = "'error'">{{fileForm.controls.file.errors.incorrectSize}}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="inputDesc">Описание</label>
+                <textarea formControlName="description" class="form-control" id="inputDesc" aria-describedby="descHelp" [attr.disabled] = "processed ? true: null"></textarea>
+                <small id="descHelp" class="form-text text-muted">Кратко не более 250 символов</small>
+            </div>
+            <div *ngIf="this.responseErrors.length > 0">
+                Errors:<br>
+                <ul>
+                    <li *ngFor="let error of this.responseErrors">{{error}}</li>
+                </ul>
+            </div>
+
+            <button type="submit" [disabled] = "!fileForm.valid || processed === true" class="btn btn-primary">{{ processed ? 'Отправка... ' + percentDone + '%' : 'Отправить'}}</button>
+        </form>
+
+    </div>
+</div>

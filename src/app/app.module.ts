@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { SendFileComponent } from './sendFile.component';
-import { GetFileComponent } from './getFile.component';
+
+import { AppComponent } from './app.component';
+import { SendFileComponent } from './sendFile/sendFile.component';
+import { GetFileComponent } from './getFile/getFile.component';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { APIHttpInterceptor } from './api/HttpInterceptor';
 
 const routes: Routes = [
     {
@@ -28,9 +32,17 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 
