@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { LocalStorageModule } from '@ngx-pwa/local-storage';
 
 import { AppComponent } from './app.component';
 import { SendFileComponent } from './sendFile/sendFile.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    LocalStorageModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
