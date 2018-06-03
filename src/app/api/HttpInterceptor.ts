@@ -12,7 +12,7 @@ export class APIHttpInterceptor implements HttpInterceptor {
   constructor (protected localStorage: LocalStorage) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // TODO check local storage
-    const url = 'http://code.zent.space/api';
+    const url = 'http://back.mediastorage.test/api';
     const uuid = window.localStorage.getItem('user');
     console.log('uuid=', uuid);
 
