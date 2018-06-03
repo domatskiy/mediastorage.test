@@ -58,7 +58,7 @@ export class SendFileComponent implements OnInit {
     this.processed = true;
     const formData = new FormData();
     Object.keys(this.fileForm.controls).forEach(key => {
-      if (key !== 'file') {
+      if (key !== 'file' && this.fileForm.get(key).value) {
         formData.append(key, this.fileForm.get(key).value);
       }
     })
@@ -70,6 +70,9 @@ export class SendFileComponent implements OnInit {
         this.percentDone = Math.round(100 * event.loaded / event.total);
       } else if (event.type ===  HttpEventType.ResponseHeader) {
         console.info('status', event.status);
+        if (event.status === 200) {
+          this.fileForm.reset();
+        }
       } else if (event instanceof HttpResponse) {
         console.log('File is completely uploaded!');
         this.processed = false;
@@ -83,6 +86,8 @@ export class SendFileComponent implements OnInit {
         });
       } else if (error.error.message !== undefined) {
         this.responseErrors.push(error.error.message);
+      } else if (error.status === 0) {
+        this.responseErrors.push('Данные не отправленны, проблема соединения с бэкендом');
       }
     });
   }
