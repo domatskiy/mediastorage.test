@@ -1,7 +1,10 @@
 <div class="card">
     <div class="card-body">
-
-        <form [formGroup]="fileForm" (ngSubmit)="onFormSubmit(fileForm)">
+        <div *ngIf="success === true">
+            <p>Файл сохранен</p>
+            <p *ngIf="successEmail === true">Ссылка отправлена на укзанную почту</p>
+        </div>
+        <form [formGroup]="fileForm" (ngSubmit)="onFormSubmit(fileForm)" *ngIf="success === false">
             <div class="form-group">
                 <label for="inputEmail1">Email</label>
                 <input formControlName="email" type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp" placeholder="email" [attr.disabled] = "processed ? true: null">

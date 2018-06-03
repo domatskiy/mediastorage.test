@@ -25,11 +25,14 @@ export class GetFileComponent implements OnInit, OnDestroy {
        this.fileHash = params.file_hash;
     }, error => {});
 
-    this.downloadFile();
+    // this.downloadFile();
+    window.location.href = 'http://back.mediastorage.test/api/uploaded/' + this.userHash + '/' + this.fileHash;
+
   }
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+  /*
   downloadFile(): void {
     const ms = new MediaStorage();
     this.http.request(ms.getFile(this.userHash, this.fileHash)).subscribe(event => {
@@ -50,6 +53,6 @@ export class GetFileComponent implements OnInit, OnDestroy {
         this.error = 'Файл не найден';
       }
     });
-  }
+  }*/
 
 }

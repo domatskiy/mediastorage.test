@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidationErrors, AbstractControl} from '@angular/forms';
 import {HttpClient, HttpEventType, HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import { MediaStorage } from '../api/MediaStorage';
-import {ArrayType} from '@angular/compiler/src/output/output_ast';
+import { ls } from 'local-storage';
 
 @Component({
   selector: 'send-file',
@@ -17,6 +17,8 @@ export class SendFileComponent implements OnInit {
   processed: Boolean = false;
   percentDone: Number = 0;
   responseErrors = [];
+  success = false;
+  successEmail = false;
 
   ngOnInit() {
     this.fileForm = new FormGroup({
@@ -59,6 +61,9 @@ export class SendFileComponent implements OnInit {
     const formData = new FormData();
     Object.keys(this.fileForm.controls).forEach(key => {
       if (key !== 'file' && this.fileForm.get(key).value) {
+        if (key === 'email') {
+          this.successEmail = true;
+        }
         formData.append(key, this.fileForm.get(key).value);
       }
     })
@@ -68,23 +73,19 @@ export class SendFileComponent implements OnInit {
     this.http.request(ms.uploadFile(formData)).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.percentDone = Math.round(100 * event.loaded / event.total);
-      } else if (event.type ===  HttpEventType.ResponseHeader) {
-        console.info('status', event.status);
-        if (event.status === 200) {
-          this.fileForm.reset();
-        }
       } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
         this.processed = false;
+        this.fileForm.reset();
+        this.success = true;
       }
     }, error => {
-      console.warn('status=', error.status, 'error=', error.error);
+      console.warn(error, 'status=', error.status, 'error=', error.error);
       this.processed = false;
-      if (error.error.errors !== undefined) {
+      if (error.error !== undefined && error.error.errors !== undefined) {
         Object.keys(error.error.errors).forEach(key => {
           this.responseErrors.push(error.error.errors[key]);
         });
-      } else if (error.error.message !== undefined) {
+      } else if (error.error !== undefined && error.error.message !== undefined) {
         this.responseErrors.push(error.error.message);
       } else if (error.status === 0) {
         this.responseErrors.push('Данные не отправленны, проблема соединения с бэкендом');
