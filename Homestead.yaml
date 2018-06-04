@@ -16,7 +16,7 @@ sites:
     -
         map: mediastorage.test
         to: /home/vagrant/code/dist
-		type: "apache"
+        type: "apache"
 
 name: mediastorage-test
 hostname: mediastorage-test
