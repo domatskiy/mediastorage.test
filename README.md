@@ -1,28 +1,39 @@
-# Simbirsoft
+### Запуск проекта на локальном PC
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
+требуемые приложения 
+- git
+- php7.2
+- composer
+- virtualbox
+- vagrant
 
-## Development server
+склонировать репозитарий в **домашнем каталоге** пользователя в директорию mediastorage.test
+```
+$ cd mediastorage.test
+$ git init
+$ git pull https://github.com/domatskiy/mediastorage.test
+```  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### установка зависимостей
 
-## Code scaffolding
+```
+$ composer install
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### запуск виртуфльной машины
 
-## Build
+```
+$ vagrant up
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+подключимся по ssh 
+```
+$ vagrant ssh
+```
 
-## Running unit tests
+для windows прописать в **c:\Windows\System32\drivers\etc\hosts** строку
+```
+192.168.20.15 mediastorage.test
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+open http://mediastorage.test

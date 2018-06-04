@@ -1,0 +1,11 @@
+{
+    "name": "mediastorage",
+    "description": ".",
+    "keywords": [""],
+    "type": "project",
+    "require": {},
+    "require-dev": {
+        "laravel/homestead": "^7.6"
+    },
+    "minimum-stability": "dev"
+}

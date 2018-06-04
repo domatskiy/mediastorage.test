@@ -1,0 +1,21 @@
+ip: 192.168.20.15
+memory: 1048
+cpus: 1
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    -
+        map: ~/mediastorage.test
+        to: /home/vagrant/code
+sites:
+    -
+        map: mediastorage.test
+        to: /home/vagrant/code/dist
+
+name: mediastorage-test
+hostname: mediastorage-test

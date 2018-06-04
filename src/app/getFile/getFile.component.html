@@ -1,0 +1,7 @@
+<div class="card">
+    <div class="card-header">Скачивание файла</div>
+    <div class="card-body">
+        <div *ngIf="percentDone > 0">{{percentDone}}</div>
+        <div class="error" *ngIf="error.length > 0">{{error}}</div>
+    </div>
+</div>
