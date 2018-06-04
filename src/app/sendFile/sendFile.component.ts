@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidationErrors, AbstractControl} from '@angular/forms';
 import {HttpClient, HttpEventType, HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import { MediaStorage } from '../api/MediaStorage';
-import { ls } from 'local-storage';
 
 @Component({
   selector: 'send-file',
