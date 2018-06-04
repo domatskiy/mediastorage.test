@@ -59,7 +59,7 @@ var APIHttpInterceptor = (function () {
         console.log('uuid=', uuid);
         req = req.clone({
             url: url + req.url,
-            headers: req.headers.set('MSUser', uuid.toString())
+            headers: req.headers.set('MSUser', uuid ? uuid.toString() : '')
         });
         return next.handle(req)
             .do(function (event) {
